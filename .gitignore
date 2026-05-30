@@ -1,0 +1,8 @@
+# Ignore ROS 2 build artifacts
+build/
+install/
+log/
+
+# Ignore local IDE settings
+.vscode/
+.cursor/

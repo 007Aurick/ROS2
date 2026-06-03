@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot name="Simple_Arm">
+
+  <link name="base">
+    <visual>
+      <geometry>
+        <box size="0.4 0.1 0.3"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="head">
+    <visual>`
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_to_arm" type="continuous">
+    <axis xyz="0 1 0"/>
+    <parent link="base"/>
+    <child link="head"/>
+    <origin xyz="0 -0.25 0.25"/>
+  </joint>
+
+</robot>

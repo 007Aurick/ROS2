@@ -6,3 +6,6 @@ log/
 # Ignore local IDE settings
 .vscode/
 .cursor/
+
+__pycache__/
+*.pyc

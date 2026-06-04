@@ -22,12 +22,51 @@
       </material>
     </visual>
   </link>
+  
+  <link name = "right_arm">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.4"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
 
-  <joint name="base_to_arm" type="continuous">
-    <axis xyz="0 1 0"/>
+  <link name = "left_arm">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.4"/>
+      </geometry>
+      <material name= "green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name = "base_to_right_arm" type = "revolute">
+    <axis xyz="1 0 0"/>
+    <parent link="base"/>
+    <child link="right_arm"/>
+    <origin xyz="0.25 0 -0.05"/>
+    <limit lower = "-1.5708" upper = "1.5708" effort = "30" velocity = "1.0"/>
+  </joint>
+
+  <joint name = "base_to_left_arm" type = "revolute">
+    <axis xyz="1 0 0"/>
+    <parent link="base"/>
+    <child link="left_arm"/>
+    <origin xyz="-0.25 0 -0.05"/>
+    <limit lower = "-1.5708" upper = "1.5708" effort = "30" velocity = "1.0"/>
+  </joint>
+
+  <joint name="base_to_head" type="revolute">
+    <axis xyz="0 0 1"/>
     <parent link="base"/>
     <child link="head"/>
-    <origin xyz="0 -0.25 0.25"/>
+    <origin xyz="0 0 0.25"/>
+    <limit lower = "-1.5708" upper = "1.5708" effort = "30" velocity = "1.0"/>
   </joint>
 
 </robot>

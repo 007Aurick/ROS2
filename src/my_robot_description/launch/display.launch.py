@@ -2,12 +2,14 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction
+from launch.substitutions import Command
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 
 def launch_setup(context, *args, **kwargs):
     pkg_path = get_package_share_directory('my_robot_description')
-    default_urdf = os.path.join(pkg_path, 'urdf', 'simple-joint.urdf')
+    default_urdf = os.path.join(pkg_path, 'urdf', 'simple-joint.urdf.xacro')
 
     configs = context.launch_configurations
     urdf_path = configs.get('urdf', default_urdf)
@@ -18,9 +20,13 @@ def launch_setup(context, *args, **kwargs):
         urdf_path = configs['urdf']
 
     urdf_path = os.path.expanduser(urdf_path)
+    if not os.path.isabs(urdf_path):
+        urdf_path = os.path.join(pkg_path, urdf_path)
 
-    with open(urdf_path, 'r') as f:
-        robot_description = f.read()
+    robot_description = ParameterValue(
+        Command(['xacro ', urdf_path]),
+        value_type=str,
+    )
 
     rviz_config = os.path.join(pkg_path, 'rviz', 'robot.rviz')
 
@@ -47,7 +53,7 @@ def launch_setup(context, *args, **kwargs):
 
 def generate_launch_description():
     pkg_path = get_package_share_directory('my_robot_description')
-    default_urdf = os.path.join(pkg_path, 'urdf', 'simple-joint.urdf')
+    default_urdf = os.path.join(pkg_path, 'urdf', 'simple-joint.urdf.xacro')
 
     return LaunchDescription([
         DeclareLaunchArgument(

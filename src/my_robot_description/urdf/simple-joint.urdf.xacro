@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot name = "simple-joint" xmlns:xacro="http://www.ros.org/wiki/xacro">  
+    <xacro:property name = "arm_length" value = "0.4"/>
+    <xacro:property name = "arm_thickness" value = "0.1"/>
+    <xacro:property name = "joint_limit" value = "1.5708"/>
+    <xacro:property name = "green" value = "0.0 1.0 0.0 1.0"/>
+    
+   <link name="base">
+    <visual>
+      <geometry>
+        <box size="0.4 0.1 0.3"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="head">
+    <visual>`
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <xacro:macro name="arm" params="name x_pos">
+  <link name="${name}">
+    <visual>
+      <geometry>
+        <box size="${arm_thickness} ${arm_thickness} ${arm_length}"/>
+      </geometry>
+      <material name="green">
+        <color rgba="${green}"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_to_${name}" type="revolute">
+    <axis xyz="1 0 0"/>
+    <parent link="base"/>
+    <child link="${name}"/>
+    <origin xyz="${x_pos} 0 -0.05"/>
+    <limit lower="-${joint_limit}" upper="${joint_limit}" effort="30" velocity="1.0"/>
+  </joint>
+</xacro:macro>
+
+<xacro:arm name = "right_arm" x_pos = "0.25"/>
+<xacro:arm name = "left_arm" x_pos = "-0.25"/>
+
+  <joint name="base_to_head" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="base"/>
+    <child link="head"/>
+    <origin xyz="0 0 0.25"/>
+    <limit lower = "-1.5708" upper = "1.5708" effort = "30" velocity = "1.0"/>
+  </joint>
+
+</robot>

@@ -8,7 +8,7 @@
   <license>TODO: License declaration</license>
 
 <!-- ADDED -->
-  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
   <depend>trajectory_msgs</depend>
 <!-- END ADDED -->
 

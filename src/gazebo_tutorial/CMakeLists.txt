@@ -8,18 +8,13 @@ endif()
 # ADDED---------------------------------------------------
 # 1. Find Packages 
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(trajectory_msgs REQUIRED)
 
-# 2. Create Executable for Joint Publisher
-add_executable(joint_publisher src/joint_publisher.cpp)
-ament_target_dependencies(joint_publisher rclcpp trajectory_msgs)
-
-# 3. Copy Files 
-install(TARGETS
-  joint_publisher
+# 2. Install Python Joint Publisher script
+install(PROGRAMS
+  scripts/joint_publisher.py
   DESTINATION lib/${PROJECT_NAME})
 
+# 3. Copy Files 
 install(DIRECTORY 
     launch 
     urdf 

@@ -2,21 +2,20 @@ controller_manager:
   ros__parameters:
     update_rate: 100  # Hz
 
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    diff_drive_controller:
-      type: diff_drive_controller/DiffDriveController
-
-diff_drive_controller:
+joint_trajectory_controller:
   ros__parameters:
-    left_wheel_names: ['left_wheel_joint']
-    right_wheel_names: ['right_wheel_joint']
-
-    wheel_separation: 0.5
-    wheel_radius: 0.1
-
-    use_stamped_vel: false
-
-    publish_rate: 50.0
-    base_frame_id: base_link
+    joints:
+      - arm_upper_to_lower_right
+      - arm_upper_to_lower_left
+    interface_name: position
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity

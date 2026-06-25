@@ -3,22 +3,20 @@
 <package format="3">
   <name>gazebo_tutorial</name>
   <version>0.0.0</version>
-  <description>Gazebo tutorial: teslabot simulation with a joint publisher</description>
-  <maintainer email="aurick.anwar2260biga@gmail.com">auric</maintainer>
-  <license>Apache-2.0</license>
+  <description>TODO: Package description</description>
+  <maintainer email="kevinwoodrobot@todo.todo">kevinwoodrobot</maintainer>
+  <license>TODO: License declaration</license>
 
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>robot_state_publisher</exec_depend>
-  <exec_depend>xacro</exec_depend>
-  <exec_depend>gazebo_ros</exec_depend>
+<!-- ADDED -->
+  <depend>rclcpp</depend>
+  <depend>trajectory_msgs</depend>
+<!-- END ADDED -->
 
-  <test_depend>ament_copyright</test_depend>
-  <test_depend>ament_flake8</test_depend>
-  <test_depend>ament_pep257</test_depend>
-  <test_depend>python3-pytest</test_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
 
   <export>
-    <build_type>ament_python</build_type>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>

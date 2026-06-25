@@ -67,4 +67,5 @@ def generate_launch_description():
             description='Alias for urdf (e.g. model:=/path/to/robot.urdf)',
         ),
         OpaqueFunction(function=launch_setup),
+        
     ])

@@ -7,9 +7,9 @@ from rclpy.duration import Duration
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 
-class JointPublisher(Node):
-    def __init__(self):
-        super().__init__('joint_publisher')
+class JointPublisher(Node):##inherit from Ros 2's Node
+    def __init__(self):##constructor
+        super().__init__('joint_publisher')#creates a publisher that sends joint trajectory messages to the topic.
         self.publisher_ = self.create_publisher(
             JointTrajectory,
             '/joint_trajectory_controller/joint_trajectory',

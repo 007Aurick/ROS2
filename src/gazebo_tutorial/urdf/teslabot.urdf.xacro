@@ -12,7 +12,7 @@
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <!-- <cylinder radius="0.01" length=".5" /> -->
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/head.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/head.STL" scale="1 1 1"/>
       </geometry>
       <material name="black">
         <color rgba="0 0 0 1"/> <!-- Black color -->
@@ -21,7 +21,7 @@
   </link>
 
   <joint name="world_to_head" type="fixed">
-    <origin xyz="0 0 1" />
+    <origin xyz="0 0 1.5" />
     <parent link="world"/>
     <child link="head"/>
   </joint>
@@ -34,7 +34,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/torso.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/torso.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -56,7 +56,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/shoulder.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/shoulder.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -80,7 +80,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/shoulder.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/shoulder.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -104,7 +104,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/arm_upper.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/arm_upper.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -130,7 +130,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/arm_upper.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/arm_upper.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -154,7 +154,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/arm_lower.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/arm_lower.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -178,7 +178,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/arm_lower.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/arm_lower.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -202,7 +202,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/hand_right.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/hand_right.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -224,7 +224,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find gazebo_tutorial)/meshes/Optimus/hand_left.STL" scale="1 1 1"/>
+        <mesh filename="file://$(find gazebo_tutorial)/meshes/Optimus/hand_left.STL" scale="1 1 1"/>
       </geometry>
       <material name="gray">
         <color rgba=".2 .2 .2 1" />
@@ -275,27 +275,28 @@
     </joint>
   </ros2_control>
 
-  <gazebo reference = "head">
-    <sensor type = "camera" name = "camera">
-        <pose>0 0 0.25 0 0.7 1.5707</pose>
-        <visualize>true</visualize>
-        <update_rate>5</update_rate>
-        <camera>
-            <horizontal_fov>1</horizontal_fov>
-            <image>
-                <format>R8G8B8</format>
-                <width>640</width>
-                <height>480</height>
-            </image>
-            <clip>
-                <near>0.05</near>
-                <far>1.0</far>
-            </clip>
-        </camera>
-        <plugin filename="libgazebo_ros2_camera.so" name="gazebo_ros2_camera">
-            <frame_name>world_to_head</frame_name>
-        </plugin>
-    </sensor>
+
+  <gazebo reference="head"> 
+      <sensor name="camera" type="camera">
+          <pose> 0 0 0.25 0 0.7 1.5707</pose>
+          <visualize>true</visualize>
+          <update_rate>5</update_rate>
+          <camera>
+              <horizontal_fov>1</horizontal_fov>
+              <image>
+                  <format>R8G8B8</format>
+                  <width>640</width>
+                  <height>480</height>
+              </image>
+              <clip>
+                  <near>0.05</near>
+                  <far>1</far>
+              </clip>
+          </camera>
+          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+              <frame_name>world_to_head</frame_name>
+          </plugin>
+      </sensor>
   </gazebo>
 
   <gazebo>

@@ -1,7 +1,8 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.substitutions import Command, FindExecutable
+from launch.substitutions import Command, FindExecutable, LaunchConfiguration
 from launch.actions import (
+    DeclareLaunchArgument,
     ExecuteProcess,
     IncludeLaunchDescription,
     RegisterEventHandler,
@@ -14,10 +15,21 @@ from launch.substitutions import PathJoinSubstitution
 
 def generate_launch_description():
 
+    # Set gui:=false to run Gazebo headless (no gzclient window) -- much lighter
+    # on WSL2 / machines without a real GPU. Physics, sensors (camera), and all
+    # topics still run; just view things in RViz instead.
+    gui = LaunchConfiguration('gui')
+    declare_gui = DeclareLaunchArgument(
+        'gui',
+        default_value='true',
+        description='Launch the Gazebo client GUI (set false for headless).',
+    )
+
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([FindPackageShare('gazebo_ros'),
-                'launch', 'gazebo.launch.py'])])
+                'launch', 'gazebo.launch.py'])]),
+        launch_arguments={'gui': gui}.items(),
     )
 
     robot_description = Command([
@@ -54,7 +66,11 @@ def generate_launch_description():
              'joint_trajectory_controller'],
         output='screen'
     )
-
+    joint_state_publisher_node = Node(
+        package='gazebo_tutorial',
+        executable='joint_publisher',
+        output='screen'
+    )
     # Load controllers only after the robot has actually spawned, so the
     # controller_manager (provided by gazebo_ros2_control) is available.
     load_broadcaster_after_spawn = RegisterEventHandler(
@@ -72,6 +88,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        declare_gui,
         gazebo_launch,
         robot_state_publisher_node,
         robot_spawn_node,
